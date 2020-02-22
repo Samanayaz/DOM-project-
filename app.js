@@ -91,6 +91,19 @@ function clearTasks(e){
 
 // Filter tasks 
 function filterTasks(e) {
-  
-}
+    
+    const filter = document.querySelector('#filter');
+ 
+   const list = document.querySelector(".list-item");
+     filter.forEach(function (text){
+         var taskName = list.firstChild.textContent;
+         if(taskName.textContent.indexOf(text)!= -1){
+         textContent.firstChild.style.display = "block";
+         } else {
+             textContent.firstChild.style.display = "none";
+         }
+     })
+ 
+   
+ }
 
