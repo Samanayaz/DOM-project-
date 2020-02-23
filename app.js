@@ -34,27 +34,38 @@ function loadEventListener(){
 
 // add task
 function addTask(e){
-e.preventDefault();
+     if(InputDeviceInfo.value == ""){
+         alert('add a task');
+     }
+    e.preventDefault();
+
 
 // taskList.appendChild(taskInput);
-var li = document.createElement('li');
+const li = document.createElement('li');
 li.className ='list-item';
 li.setAttribute('style','color:purple')
-var taskInput = document.querySelector('#task').value;
+var taskInput = document.querySelector('#task');
 
-li.appendChild(document.createTextNode(taskInput));
+li.appendChild(document.createTextNode(taskInput.value));
 
 // form.appendChild(taskInput);
-var link = document.createElement('a');
+const link = document.createElement('a');
 link.setAttribute('href','#');
 link.className = "delete-item secondary-content";
-var iconBtn = document.createElement('i');
+const iconBtn = document.createElement('i');
 iconBtn.className = "fa fa-remove";
 link.appendChild(iconBtn);
+// or we can do
+// link.innerHTML = '<i class="fa fa-remove"></i>'
+html = 
 li.appendChild(link);
 
+// append li to ul
 
 taskList.appendChild(li);
+
+// clear input 
+taskInput.value= "";
 
 
 // var blank = document.querySelector('#task').value;
@@ -67,43 +78,38 @@ taskList.appendChild(li);
 // remove task 
 function removeTask(e){
     if(e.target.parentElement.classList.contains('delete-item')) {
+        if(confirm('Are you sure?')) {
        console.log('delete item');
        e.target.parentElement.parentElement.remove();
     }
+}
 }
 
 // clear task 
 
 function clearTasks(e){
-
-    e.preventDefault();
-    if(e.target.parentElement.classList.contains('list-item')){
-        e.target.parentElement.parentElement.remove();
-    }
-    // const clearBtn = document.querySelector('.clear-tasks');
-    
-    clearBtn.style.color =  "red";
-  
-    console.log('clear-tasks');
-    
+// tasklist.innerHTML = "";
+while(taskList.firstChild) {
+    taskList.removeChild(tasklist.firstChild);
+  }
 }
 
 
-// Filter tasks 
-function filterTasks(e) {
-    
-    const filter = document.querySelector('#filter');
- 
-   const list = document.querySelector(".list-item");
-     filter.forEach(function (text){
-         var taskName = list.firstChild.textContent;
-         if(taskName.textContent.indexOf(text)!= -1){
-         textContent.firstChild.style.display = "block";
-         } else {
-             textContent.firstChild.style.display = "none";
-         }
-     })
- 
-   
- }
 
+// Filter tasks 
+
+function filterTasks(e) {
+    const text = e.target.value.toLowerCase();
+
+    document.querySelectorAll('.collection-item').forEach(function(task){
+    const item = task.firstChild.textcontent;
+    if(item.toLowerCase().indexOf(text) != -1){
+        task.style.display = 'block';
+        } else {
+            task.style.display = "none";
+        }
+    }
+    );
+
+
+}
